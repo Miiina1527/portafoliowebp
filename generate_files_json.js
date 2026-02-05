@@ -17,7 +17,7 @@ async function walk(dir, base = ''){
         name: ent.name,
         relPath: rel.replace(/\\/g, '/'),
         size: stat.size,
-        url: `/uploads/${parts}`
+        url: `uploads/${parts}`
       });
     }
   }
