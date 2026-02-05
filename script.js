@@ -57,7 +57,22 @@ document.addEventListener('DOMContentLoaded', async ()=>{
 		const { tree, order } = buildHierarchy(Array.isArray(files) ? files : []);
 		renderGallery(gallery, tree, order);
 	}catch(err){
-		// Fallback: no server reachable — render the template-only hierarchy so user can view structure
+		// Fallback: try to load a static files manifest `files.json` (for GitHub Pages)
+		try{
+			const res = await fetch('./files.json', { cache: 'no-store' });
+			if(res.ok){
+				const files = await res.json();
+				const { tree, order } = buildHierarchy(Array.isArray(files) ? files : []);
+				renderGallery(gallery, tree, order);
+				const note = document.createElement('div');
+				note.className = 'server-banner';
+				note.textContent = 'Usando files.json estático (GitHub Pages)';
+				document.querySelector('header').appendChild(note);
+				return;
+			}
+		}catch(e){
+			// ignore and fallback to template-only view
+		}
 		const { tree, order } = buildHierarchy([]);
 		renderGallery(gallery, tree, order);
 		// Show hint to indicate offline/template mode
