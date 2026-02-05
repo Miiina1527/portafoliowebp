@@ -1,0 +1,261 @@
+/* --- CONFIGURACIÓN BASE (MODO DARK SCI-FI) --- */
+:root {
+    --fondo: #0b0d10;          /* Gris muy oscuro, menos brillante que el negro puro */
+    --tarjeta: #121212;        /* Gris muy oscuro para las cartas */
+    --tarjeta-hover: #1a1a1a;
+    --texto: #e0e0e0;          /* Blanco suave */
+    --texto-secundario: #888;
+    --acento-violeta: #8A2BE2; /* Cerenkov */
+    --acento-verde: #5E7D58;   /* Nopal */
+    --azul-electrico: #0b5cff; /* Tu azul original, pero para detalles */
+    --borde: #333;
+    --fuente: 'Courier New', Courier, monospace; /* Estilo código/guion */
+}
+
+/* --- TEMA CLARO (PASTEL SOBRE BEIGE) --- */
+.theme-light {
+    --fondo: #f6efd9; /* beige claro */
+    --tarjeta: #fffef8; /* tarjeta ligeramente crema */
+    --tarjeta-hover: #fff6e6;
+    --texto: #111111;
+    --texto-secundario: #454545;
+    --acento-violeta: #bfa0ff; /* pastel púrpura */
+    --acento-verde: #7fc8b6;  /* pastel verde/teal */
+    --azul-electrico: #7fc8b6;
+    --borde: #e6dcc8;
+    --fuente: 'Courier New', Courier, monospace;
+    --glow: rgba(127,200,182,0.22);
+}
+
+body {
+    font-family: var(--fuente);
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+/* --- HEADER --- */
+header { 
+    background: linear-gradient(180deg, rgba(11, 92, 255, 0.1) 0%, rgba(5, 5, 5, 0) 100%);
+    border-bottom: 1px solid var(--borde);
+    color: var(--texto); 
+    padding: 30px 24px; 
+    text-align: center;
+}
+
+header h1 { 
+    margin: 0; 
+    font-size: 1.8rem; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Brillo sutil */
+}
+
+/* Light-theme glow for headings and key text */
+.theme-light header h1,
+.theme-light .category-card summary,
+.theme-light .project summary,
+.theme-light .file-item summary,
+.theme-light .placeholder-note {
+    text-shadow: 0 0 10px var(--glow);
+    color: var(--texto);
+}
+
+.theme-light a { text-shadow: 0 0 6px rgba(191,160,255,0.18); }
+
+/* Header layout when showing controls */
+header .header-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+header .header-row > div:first-child{ text-align:left }
+header .theme-controls{ display:flex; gap:8px; align-items:center }
+header .theme-controls button{ background: transparent; border: 1px solid rgba(255,255,255,0.06); color: var(--texto); padding:8px 10px; border-radius:6px; cursor:pointer }
+/* Adjust appearance for light theme button */
+.theme-light header .theme-controls button{ border-color: rgba(0,0,0,0.06); color: var(--texto) }
+
+.server-banner { 
+    margin-top: 12px; 
+    color: var(--acento-verde); 
+    background: rgba(94, 125, 88, 0.1); 
+    border: 1px solid var(--acento-verde);
+    padding: 4px 12px; 
+    border-radius: 4px; 
+    display: inline-block; 
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+
+/* --- ESTRUCTURA PRINCIPAL --- */
+main { 
+    max-width: 1000px; 
+    margin: 40px auto; 
+    padding: 0 16px; 
+}
+
+/* --- TARJETAS (CARDS) --- */
+.cards-grid-inner { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Responsive mejorado */
+    gap: 20px; 
+}
+
+.card { 
+    background: var(--tarjeta); /* Tarjeta más neutra y menos brillante */
+    padding: 0; /* Quitamos padding general para que el details llene todo */
+    border: 1px solid var(--borde);
+    border-radius: 8px; 
+    box-shadow: none; 
+    margin-bottom: 16px; 
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    border-color: var(--acento-violeta);
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.15);
+}
+
+/* --- CATEGORÍAS (DETAILS / SUMMARY) --- */
+.category-card details { 
+    padding: 20px; 
+}
+
+.category-card summary { 
+    font-weight: bold; 
+    font-size: 1.1rem; 
+    cursor: pointer; 
+    color: var(--acento-violeta);
+    list-style: none; /* Ocultamos el triángulo default feo */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Flechita personalizada */
+.category-card summary::after {
+    content: '+'; 
+    font-weight: bold;
+    color: var(--texto-secundario);
+}
+.category-card details[open] summary::after {
+    content: '-';
+}
+
+/* --- PROYECTOS INTERNOS --- */
+.project { 
+    border-left: 1px solid var(--borde);
+    margin-top: 15px;
+    padding-left: 15px;
+}
+
+.project summary { 
+    font-weight: 500; 
+    color: var(--texto);
+    font-size: 1rem;
+}
+.project summary:hover {
+    color: var(--acento-verde);
+}
+
+.project .project-files { 
+    padding: 10px 0; 
+}
+
+/* --- ARCHIVOS INDIVIDUALES --- */
+.file-item { 
+    margin-bottom: 10px; 
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 10px;
+}
+
+.file-item summary { 
+    cursor: pointer; 
+    color: #ccc;
+    font-size: 0.9rem;
+}
+.file-item summary:hover {
+    color: white;
+}
+
+/* CAJA DE DETALLES DEL ARCHIVO */
+.file-meta { 
+    padding: 10px 15px; 
+    background: rgba(0,0,0,0.3); /* Fondo negro translúcido */
+    border-radius: 4px; 
+    margin-top: 8px; 
+    border-left: 2px solid var(--acento-verde);
+}
+
+/* Note for placeholders (Guion, Sinópsis, Logline) */
+.placeholder-note{
+    background: rgba(255,255,255,0.02);
+    padding: 10px;
+    border-radius: 4px;
+    color: var(--texto);
+    font-style: italic;
+}
+
+.meta-size { 
+    color: var(--texto-secundario); 
+    margin-top: 6px; 
+    font-size: 0.8rem; 
+    font-family: sans-serif; /* Para que los números se lean bien */
+}
+
+/* --- LINKS Y BOTONES --- */
+a { 
+    color: var(--acento-violeta); 
+    text-decoration: none; 
+    border-bottom: 1px dashed var(--acento-violeta);
+    transition: 0.2s;
+}
+
+a:hover { 
+    text-decoration: none; 
+    background: var(--acento-violeta);
+    color: black;
+}
+
+.hint { color: var(--texto-secundario); font-style: italic; }
+
+/* --- FOOTER --- */
+footer { 
+    max-width: 900px; 
+    margin: 50px auto; 
+    padding: 0 16px; 
+    color: var(--texto-secundario); 
+    text-align: center;
+    font-size: 0.8rem;
+    border-top: 1px solid var(--borde);
+    padding-top: 20px;
+}
+
+/* --- SELECCIÓN Y FOCO: evitar 'brillo blanco' al hacer click en resúmenes --- */
+/* Selección temática (evita selección blanca por defecto) */
+::selection { background: rgba(138,43,226,0.18); color: var(--texto); }
+.theme-light ::selection { background: rgba(191,160,255,0.20); color: var(--texto); }
+
+/* Evitar que los summary se marquen en blanco al hacer click; prevenir selección accidental */
+summary,
+.category-card summary,
+.project summary,
+.file-item summary {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    outline: none;
+}
+
+/* Foco claro y sutil en summary (en lugar del brillo blanco) */
+summary:focus,
+summary:active {
+    outline: none;
+    background: transparent;
+    color: var(--acento-violeta);
+    box-shadow: 0 0 0 3px rgba(138,43,226,0.06);
+    border-radius: 6px;
+}
+
+/* Quitar el marcador por defecto en WebKit y ofrecer control visual consistente */
+summary::-webkit-details-marker { display: none; }
+
+/* Evitar highlight táctil brillante en móviles */
+* { -webkit-tap-highlight-color: rgba(0,0,0,0); }
